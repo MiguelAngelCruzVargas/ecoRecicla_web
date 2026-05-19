@@ -228,20 +228,30 @@
             color: #34d399;
         }
 
+        /* Global Scroll Margin for Navbar Clearance */
+        section, header, footer {
+            scroll-margin-top: 80px;
+        }
+        @media (min-width: 1024px) {
+            section, header, footer {
+                scroll-margin-top: 100px;
+            }
+        }
+
         /* Mobile Dropdown Container */
         .mobile-dropdown-menu {
             position: absolute;
             top: 100%;
             left: 0;
             right: 0;
-            background: linear-gradient(180deg, rgba(6, 95, 70, 0.96) 0%, rgba(4, 120, 87, 0.98) 100%);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 25px 50px -12px rgba(6, 95, 70, 0.6);
+            background: linear-gradient(180deg, rgba(6, 70, 53, 0.98) 0%, rgba(4, 90, 66, 0.99) 100%);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 30px 60px -10px rgba(4, 60, 40, 0.7);
             max-height: 0;
             opacity: 0;
-            transform: translateY(-10px);
+            transform: translateY(-15px);
             pointer-events: none;
             overflow: hidden;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -249,11 +259,11 @@
         }
 
         .mobile-dropdown-menu.open {
-            max-height: 350px;
+            max-height: 400px;
             opacity: 1;
             transform: translateY(0);
             pointer-events: auto;
-            padding: 16px 24px;
+            padding: 24px 20px;
         }
 
         /* Cursor Personalizado (Icono de Reciclaje) */
@@ -409,45 +419,175 @@
             pointer-events: none;
         }
 
-        .info-badge {
+        /* Responsive Guía de Separación Cards & Badges */
+        .info-card-wrapper {
             position: relative;
-            width: 92px;
-            height: 92px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .info-badge {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 64px;
+            height: 64px;
             border-radius: 999px;
-            background:
-                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.98), rgba(241, 245, 249, 0.95) 42%, rgba(203, 213, 225, 0.96) 68%, rgba(255, 255, 255, 0.92) 100%);
-            box-shadow:
-                0 8px 25px rgba(15, 23, 42, 0.18),
-                inset 10px 10px 18px rgba(255, 255, 255, 0.95),
-                inset -12px -12px 20px rgba(148, 163, 184, 0.25);
+            background: radial-gradient(circle at 30% 30%, #ffffff, #f1f5f9 42%, #cbd5e1 68%, #ffffff 100%);
+            box-shadow: 
+                0 6px 15px rgba(15, 23, 42, 0.12),
+                inset 6px 6px 12px rgba(255, 255, 255, 0.95),
+                inset -8px -8px 12px rgba(148, 163, 184, 0.2);
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .info-badge::before {
             content: '';
             position: absolute;
-            inset: 12px;
+            inset: 8px;
             border-radius: 999px;
             background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(226, 232, 240, 0.78));
         }
 
-        .info-badge>span {
+        .info-badge > span {
             position: relative;
             z-index: 1;
-            width: 52px;
-            height: 52px;
+            width: 36px;
+            height: 36px;
             border-radius: 999px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: 800;
-            font-size: 1.9rem;
-            box-shadow: inset 0 -6px 10px rgba(0, 0, 0, 0.18);
+            font-size: 1.25rem;
+            box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .info-strip {
+            padding-right: 88px !important; /* Prevent text colliding with absolute badge on mobile */
+        }
+
+        @media (min-width: 1024px) {
+            .info-card-wrapper {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .info-strip {
+                padding-right: 5rem !important; /* Desktop spacing clearance */
+            }
+
+            .info-badge {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                margin-left: -2rem;
+                width: 92px;
+                height: 92px;
+                box-shadow:
+                    0 8px 25px rgba(15, 23, 42, 0.18),
+                    inset 10px 10px 18px rgba(255, 255, 255, 0.95),
+                    inset -12px -12px 20px rgba(148, 163, 184, 0.25);
+            }
+
+            .info-badge::before {
+                inset: 12px;
+            }
+
+            .info-badge > span {
+                width: 52px;
+                height: 52px;
+                font-size: 1.9rem;
+                box-shadow: inset 0 -6px 10px rgba(0, 0, 0, 0.18);
+            }
         }
 
         @media (max-width: 1023px) {
             .info-strip {
                 border-radius: 2rem;
+            }
+        }
+
+        /* Bento Box Grid Overlays - Responsive Support for Touch Screens */
+        .bento-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 24px;
+            text-align: center;
+            /* Mobile gradient overlay always visible at bottom */
+            background: linear-gradient(180deg, rgba(6, 95, 70, 0) 0%, rgba(6, 95, 70, 0.4) 40%, rgba(4, 60, 45, 0.9) 100%);
+            opacity: 1;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .bento-icon {
+            font-size: 2.25rem;
+            margin-bottom: 8px;
+            transform: translateY(0);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+        }
+
+        .bento-title {
+            font-size: 1.25rem;
+            transform: translateY(0);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive adjustments for the larger first card */
+        .md\:col-span-2 .bento-icon {
+            font-size: 2.75rem;
+        }
+        .md\:col-span-2 .bento-title {
+            font-size: 1.75rem;
+        }
+
+        @media (min-width: 1024px) {
+            .bento-overlay {
+                justify-content: center;
+                background: rgba(6, 95, 70, 0.72);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                opacity: 0;
+            }
+
+            .group:hover .bento-overlay {
+                opacity: 1;
+            }
+
+            .bento-icon {
+                font-size: 3rem;
+                margin-bottom: 16px;
+                transform: translateY(16px);
+            }
+
+            .bento-title {
+                font-size: 1.5rem;
+                transform: translateY(16px);
+            }
+
+            .md\:col-span-2 .bento-icon {
+                font-size: 4rem;
+            }
+            .md\:col-span-2 .bento-title {
+                font-size: 2.25rem;
+            }
+
+            .group:hover .bento-icon,
+            .group:hover .bento-title {
+                transform: translateY(0);
             }
         }
 
@@ -594,13 +734,12 @@
 
     <!-- [HERO SECTION - INDICADOR 6] -->
     <header id="inicio"
-        class="min-h-screen flex flex-col justify-center pt-28 pb-16 px-6 bg-white overflow-hidden relative reveal">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 w-full relative z-10">
+        class="min-h-[auto] lg:min-h-screen flex flex-col justify-center pt-36 pb-12 lg:pt-28 lg:pb-16 px-6 bg-white overflow-hidden relative reveal">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-12 w-full relative z-10">
             <div class="lg:w-[45%] text-center lg:text-left relative z-20">
-                <p class="text-sky-500 font-bold tracking-widest uppercase mb-4 text-sm md:text-base">#RECICLA_AHORA!
-                </p>
+                <p class="text-sky-500 font-bold tracking-widest uppercase mb-4 text-sm md:text-base">#RECICLA_AHORA!</p>
                 <h1
-                    class="text-5xl lg:text-7xl font-light text-slate-600 leading-tight lg:leading-[1.1] mb-6 uppercase">
+                    class="text-4xl sm:text-5xl lg:text-7xl font-light text-slate-600 leading-tight lg:leading-[1.1] mb-6 uppercase">
                     El reciclaje <br><span class="font-black text-slate-800">es un estilo de vida</span>
                 </h1>
                 <p class="text-lg text-slate-500 mb-10 max-w-xl mx-auto lg:mx-0">
@@ -720,22 +859,21 @@
                         <div class="lg:col-span-7 space-y-3 md:space-y-4 relative z-10 lg:-ml-28 xl:-ml-32 lg:pt-8">
 
                             <!-- Item A: Plástico -->
-                            <div class="flex flex-col lg:flex-row lg:items-center group">
+                            <div class="info-card-wrapper group">
                                 <div
                                     class="info-strip flex-1 bg-[linear-gradient(90deg,#1aa7c6_0%,#29bfdc_52%,#56d8ee_100%)] text-white pl-6 pr-8 py-4 md:py-5 lg:pl-28 lg:pr-20 transition-all duration-300 group-hover:translate-x-2 min-h-[96px] lg:min-h-[104px] flex flex-col justify-center">
                                     <h4 class="font-black uppercase">Plásticos y Envases</h4>
                                     <div class="w-24 h-1.5 rounded-full bg-white/80 mt-2 mb-2"></div>
                                     <p class="text-cyan-50 leading-relaxed">Botellas, bolsas,
-                                        envolturas, tapas y recipientes limpios listos para reciclar.</p>
+                                        envolturas, tapas and recipientes limpios listos para reciclar.</p>
                                 </div>
-                                <div
-                                    class="info-badge mt-[-1.5rem] ml-auto mr-4 lg:mt-0 lg:ml-[-2rem] lg:mr-0 flex items-center justify-center z-20">
+                                <div class="info-badge">
                                     <span class="bg-[#31c8df]">A</span>
                                 </div>
                             </div>
 
                             <!-- Item B: Cartón -->
-                            <div class="flex flex-col lg:flex-row lg:items-center group">
+                            <div class="info-card-wrapper group">
                                 <div
                                     class="info-strip flex-1 bg-[linear-gradient(90deg,#e3a11c_0%,#f2b12a_52%,#ffc548_100%)] text-white pl-6 pr-8 py-4 md:py-5 lg:pl-28 lg:pr-20 transition-all duration-300 group-hover:translate-x-2 min-h-[96px] lg:min-h-[104px] flex flex-col justify-center">
                                     <h4 class="font-black uppercase">Cartón y Papel</h4>
@@ -744,14 +882,13 @@
                                         cuadernos, periódicos y folletos secos, sin restos de comida.
                                     </p>
                                 </div>
-                                <div
-                                    class="info-badge mt-[-1.5rem] ml-auto mr-4 lg:mt-0 lg:ml-[-2rem] lg:mr-0 flex items-center justify-center z-20">
+                                <div class="info-badge">
                                     <span class="bg-[#ffae24]">B</span>
                                 </div>
                             </div>
 
                             <!-- Item C: Vidrio -->
-                            <div class="flex flex-col lg:flex-row lg:items-center group">
+                            <div class="info-card-wrapper group">
                                 <div
                                     class="info-strip flex-1 bg-[linear-gradient(90deg,#e1592d_0%,#f86736_52%,#ff8358_100%)] text-white pl-6 pr-8 py-4 md:py-5 lg:pl-28 lg:pr-20 transition-all duration-300 group-hover:translate-x-2 min-h-[96px] lg:min-h-[104px] flex flex-col justify-center">
                                     <h4 class="font-black uppercase">Vidrio y Cristal</h4>
@@ -760,14 +897,13 @@
                                         y envases de vidrio vacíos. Evita cerámica, espejos o focos.
                                     </p>
                                 </div>
-                                <div
-                                    class="info-badge mt-[-1.5rem] ml-auto mr-4 lg:mt-0 lg:ml-[-2rem] lg:mr-0 flex items-center justify-center z-20">
+                                <div class="info-badge">
                                     <span class="bg-[#ff632f]">C</span>
                                 </div>
                             </div>
 
                             <!-- Item D: General -->
-                            <div class="flex flex-col lg:flex-row lg:items-center group">
+                            <div class="info-card-wrapper group">
                                 <div
                                     class="info-strip flex-1 bg-[linear-gradient(90deg,#35465c_0%,#465a71_52%,#607589_100%)] text-white pl-6 pr-8 py-4 md:py-5 lg:pl-28 lg:pr-20 transition-all duration-300 group-hover:translate-x-2 min-h-[96px] lg:min-h-[104px] flex flex-col justify-center">
                                     <h4 class="font-black uppercase">Residuos Especiales</h4>
@@ -775,8 +911,7 @@
                                     <p class="text-slate-200 leading-relaxed">Pilas, electrónicos
                                         o desechos mixtos deben separarse y llevarse a puntos de acopio.</p>
                                 </div>
-                                <div
-                                    class="info-badge mt-[-1.5rem] ml-auto mr-4 lg:mt-0 lg:ml-[-2rem] lg:mr-0 flex items-center justify-center z-20">
+                                <div class="info-badge">
                                     <span class="bg-[#3f5568]">D</span>
                                 </div>
                             </div>
@@ -886,13 +1021,9 @@
                     <img src="img_plastico.png"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         alt="Plástico">
-                    <div
-                        class="absolute inset-0 bg-emerald-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
-                        <i
-                            class="fa-solid fa-bottle-water text-5xl text-white mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"></i>
-                        <h3
-                            class="text-white text-3xl font-black tracking-wider transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
-                            PLÁSTICO</h3>
+                    <div class="bento-overlay">
+                        <i class="fa-solid fa-bottle-water text-white bento-icon"></i>
+                        <h3 class="text-white font-black tracking-wider bento-title">PLÁSTICO</h3>
                     </div>
                 </div>
 
@@ -901,13 +1032,9 @@
                     <img src="img_carton.png"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         alt="Cartón">
-                    <div
-                        class="absolute inset-0 bg-emerald-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
-                        <i
-                            class="fa-solid fa-box text-4xl text-white mb-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"></i>
-                        <h3
-                            class="text-white text-xl font-black tracking-wider transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
-                            CARTÓN</h3>
+                    <div class="bento-overlay">
+                        <i class="fa-solid fa-box text-white bento-icon"></i>
+                        <h3 class="text-white font-black tracking-wider bento-title">CARTÓN</h3>
                     </div>
                 </div>
 
@@ -916,13 +1043,9 @@
                     <img src="img_vidrio.png"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         alt="Vidrio">
-                    <div
-                        class="absolute inset-0 bg-emerald-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
-                        <i
-                            class="fa-solid fa-wine-bottle text-4xl text-white mb-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"></i>
-                        <h3
-                            class="text-white text-xl font-black tracking-wider transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
-                            VIDRIO</h3>
+                    <div class="bento-overlay">
+                        <i class="fa-solid fa-wine-bottle text-white bento-icon"></i>
+                        <h3 class="text-white font-black tracking-wider bento-title">VIDRIO</h3>
                     </div>
                 </div>
 
@@ -931,13 +1054,9 @@
                     <img src="img_papel.png"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         alt="Papel">
-                    <div
-                        class="absolute inset-0 bg-emerald-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
-                        <i
-                            class="fa-solid fa-newspaper text-4xl text-white mb-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"></i>
-                        <h3
-                            class="text-white text-xl font-black tracking-wider transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
-                            PAPEL</h3>
+                    <div class="bento-overlay">
+                        <i class="fa-solid fa-newspaper text-white bento-icon"></i>
+                        <h3 class="text-white font-black tracking-wider bento-title">PAPEL</h3>
                     </div>
                 </div>
 
@@ -946,13 +1065,9 @@
                     <img src="img_metales.png"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         alt="Metales">
-                    <div
-                        class="absolute inset-0 bg-emerald-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
-                        <i
-                            class="fa-solid fa-can-food text-4xl text-white mb-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"></i>
-                        <h3
-                            class="text-white text-xl font-black tracking-wider transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
-                            METALES</h3>
+                    <div class="bento-overlay">
+                        <i class="fa-solid fa-can-food text-white bento-icon"></i>
+                        <h3 class="text-white font-black tracking-wider bento-title">METALES</h3>
                     </div>
                 </div>
 
@@ -993,21 +1108,21 @@
                         <p class="text-slate-400 text-[10px] font-black uppercase tracking-tighter mb-4">Integrantes
                             (Apellido, Nombre • A-Z)</p>
                         <ul class="space-y-3 font-bold text-sm">
-                            <li><span class="text-emerald-500 mr-2">01.</span> Alvarado Ruiz, Carlos Daniel</li>
-                            <li><span class="text-emerald-500 mr-2">02.</span> Gomez Pérez, María Fernanda</li>
-                            <li><span class="text-emerald-500 mr-2">03.</span> Zavala Hernández, Roberto</li>
+                            <li><span class="text-emerald-500 mr-2">01.</span> Sandoval Díaz, Axel</li>
+                            <li><span class="text-emerald-500 mr-2">02.</span> Sanjuan Martines, Víctor</li>
+                            <li><span class="text-emerald-500 mr-2">03.</span> Velázquez Hernández, Jesús Alejandro</li>
                         </ul>
                     </div>
                     <div class="space-y-6">
                         <div>
                             <p class="text-slate-400 text-[10px] font-black uppercase tracking-tighter mb-2">Semestre &
                                 Grupo</p>
-                            <p class="text-slate-800 font-extrabold">6to Semestre • Grupo B</p>
+                            <p class="text-slate-800 font-extrabold">2do Semestre • Grupo A</p>
                         </div>
                         <div>
                             <p class="text-slate-400 text-[10px] font-black uppercase tracking-tighter mb-2">
                                 Especialidad Técnica</p>
-                            <p class="text-slate-800 font-extrabold italic">Programación / Ofimática</p>
+                            <p class="text-slate-800 font-extrabold italic">Contabilidad</p>
                         </div>
                     </div>
                 </div>
@@ -1186,11 +1301,13 @@
             const icon = document.getElementById('mobile-icon');
             menu.classList.toggle('open');
             
-            // Switch burger to X with fluid ease
+            // Switch burger to X with fluid ease & toggle body scroll lock
             if (menu.classList.contains('open')) {
                 icon.className = 'fa-solid fa-xmark';
+                document.body.style.overflow = 'hidden';
             } else {
                 icon.className = 'fa-solid fa-bars';
+                document.body.style.overflow = '';
             }
         }
 
